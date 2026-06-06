@@ -1,0 +1,123 @@
+---
+import Base from '../layouts/Base.astro';
+import ClosingCTA from '../components/ClosingCTA.astro';
+import { site } from '../config';
+import { pillars, engagements } from '../content';
+---
+
+<Base
+  title={`Practice — ${site.practitionerName}`}
+  description="Hotel management agreements, branded residences, hospitality M&A and F&B integration — a single specialism told in depth."
+>
+  <!-- ====================== HEADER ====================== -->
+  <header class="gutter pb-20 pt-40 md:pt-48">
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-7">
+        <p class="overline mb-8">The Practice</p>
+        <h1 class="text-[clamp(2.6rem,6.5vw,4.6rem)] text-bone">
+          One specialism, told in depth.
+        </h1>
+      </div>
+      <p class="self-end text-lg text-bone-variant md:col-span-4 md:col-start-9">
+        Four connected pillars within a single discipline — luxury hospitality
+        real estate. Each is the work of the same senior hand, which is what
+        lets them reinforce one another.
+      </p>
+    </div>
+  </header>
+
+  <!-- ====================== PILLARS (alternating) ====================== -->
+  {
+    pillars.map((p, i) => (
+      <section
+        id={p.id}
+        class="gutter hairline scroll-mt-28 py-24 md:py-32"
+        aria-labelledby={`${p.id}-heading`}
+      >
+        <div class="grid grid-cols-1 items-center gap-12 md:grid-cols-12">
+          <div
+            class:list={[
+              'md:col-span-6',
+              i % 2 === 1 ? 'md:order-2 md:col-start-7' : '',
+            ]}
+          >
+            <div class="frame aspect-[5/4]" data-reveal>
+              <img src={p.img} alt={p.alt} loading="lazy" />
+            </div>
+          </div>
+          <div
+            class:list={[
+              'md:col-span-5',
+              i % 2 === 1 ? 'md:order-1 md:col-start-1' : 'md:col-start-8',
+            ]}
+          >
+            <span class="text-[0.75rem] font-semibold tracking-[0.15em] text-brass" data-reveal>
+              {p.index} / {p.tagline.toUpperCase()}
+            </span>
+            <h2
+              id={`${p.id}-heading`}
+              class="mt-5 text-[clamp(1.8rem,4vw,2.8rem)] text-bone"
+              data-reveal
+            >
+              {p.title}
+            </h2>
+            <p class="mt-6 text-lg text-bone-variant" data-reveal>
+              {p.body}
+            </p>
+            <p class="mt-5 text-bone-variant" data-reveal>{p.longBody}</p>
+            <ul class="mt-8 flex flex-wrap gap-2.5" data-reveal>
+              {p.chips.map((c) => (
+                <li class="chip">{c}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- ====================== HOW THE WORK IS PRICED ====================== -->
+  <section class="gutter hairline py-24 md:py-32" aria-labelledby="pricing-heading">
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <p class="overline mb-6" data-reveal>Fees</p>
+        <h2
+          id="pricing-heading"
+          class="text-[clamp(1.9rem,4vw,2.8rem)] text-bone"
+          data-reveal
+        >
+          How the work is priced.
+        </h2>
+        <p class="mt-6 text-bone-variant" data-reveal>
+          The model is fixed-fee by default — clarity before the work begins,
+          not an invoice that arrives as a surprise. Hourly is available
+          selectively, where a fixed fee genuinely does not fit.
+        </p>
+      </div>
+      <div class="md:col-span-7 md:col-start-6">
+        <ol class="border-t border-line">
+          {
+            engagements.map((e) => (
+              <li class="grid grid-cols-1 gap-4 border-b border-line py-8 md:grid-cols-12" data-reveal>
+                <span class="text-[0.75rem] font-semibold tracking-[0.15em] text-brass md:col-span-1">
+                  {e.index}
+                </span>
+                <h3 class="text-[1.4rem] text-bone md:col-span-4">{e.title}</h3>
+                <p class="text-bone-variant md:col-span-7">{e.body}</p>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="mt-8 text-[0.95rem] uppercase tracking-[0.12em] text-bone-muted" data-reveal>
+          Indicative fees provided on enquiry.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <ClosingCTA
+    overline="Discuss a matter"
+    heading="Bring the matter to the person who will run it."
+    body="A short conversation is usually enough to scope the work and set a fixed fee. Indicative numbers follow on enquiry."
+  />
+</Base>

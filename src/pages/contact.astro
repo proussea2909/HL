@@ -1,0 +1,148 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+---
+
+<Base
+  title={`Contact — ${site.practitionerName}`}
+  description="Open an enquiry. Senior counsel for luxury hospitality across European and Gulf markets."
+>
+  <!-- ====================== SPLIT LAYOUT ====================== -->
+  <section class="gutter pb-16 pt-40 md:pt-48" aria-labelledby="contact-heading">
+    <div class="grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-12">
+      <!-- LEFT: invitation -->
+      <div class="md:col-span-5">
+        <p class="overline mb-8">Contact</p>
+        <h1 id="contact-heading" class="text-[clamp(2.4rem,5.5vw,3.8rem)] text-bone">
+          Start with a conversation.
+        </h1>
+        <p class="mt-8 text-lg text-bone-variant">
+          Most matters begin with a short call to understand the agreement, the
+          counterparty and the timeline. From there, the work is usually scoped
+          to a fixed fee.
+        </p>
+
+        <div class="mt-12 space-y-8">
+          <div>
+            <p class="overline mb-3">Direct</p>
+            <a
+              href={`mailto:${site.email}`}
+              class="font-[var(--font-display)] text-2xl text-bone transition-colors hover:text-brass"
+              >{site.email}</a
+            >
+          </div>
+          <div>
+            <p class="overline mb-3">Markets</p>
+            <p class="text-bone-variant">European &amp; Gulf hospitality</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: enquiry form -->
+      <div class="md:col-span-6 md:col-start-7">
+        <!-- TODO: set your form endpoint in src/config.ts (formEndpoint) -->
+        <form
+          id="enquiry-form"
+          action={site.formEndpoint}
+          method="POST"
+          class="space-y-10"
+        >
+          <input type="hidden" name="_subject" value="New enquiry — website" />
+          <!-- honeypot -->
+          <input
+            type="text"
+            name="_gotcha"
+            class="hidden"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
+
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" type="text" name="name" required autocomplete="name" />
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" required autocomplete="email" />
+          </div>
+
+          <div class="field">
+            <label for="organisation">Organisation <span class="normal-case tracking-normal text-bone-muted">(optional)</span></label>
+            <input id="organisation" type="text" name="organisation" autocomplete="organization" />
+          </div>
+
+          <div class="field">
+            <label for="matter">Nature of the matter</label>
+            <textarea id="matter" name="matter" rows="4" required placeholder="A few lines on the agreement, transaction or project."></textarea>
+          </div>
+
+          <button type="submit" class="btn">
+            Send enquiry <span aria-hidden="true">→</span>
+          </button>
+
+          <p
+            id="enquiry-success"
+            class="hidden border border-brass-dim p-6 text-bone"
+            role="status"
+          >
+            Thank you. Your enquiry has been received and will be answered
+            personally, in confidence.
+          </p>
+
+          <p class="text-[0.85rem] leading-relaxed text-bone-muted">
+            Communication via this form does not create a lawyer–client
+            relationship. All enquiries are treated in strict confidence.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FULL-BLEED JURISDICTION IMAGE ====================== -->
+  <section class="relative mt-12 h-[55vh] min-h-[380px] overflow-hidden" aria-label="Markets">
+    <div class="frame absolute inset-0">
+      <!-- TODO: swap for licensed photography -->
+      <img
+        src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=2000&q=70"
+        alt="Coastal luxury resort architecture at dusk"
+        loading="lazy"
+      />
+      <div
+        class="absolute inset-0"
+        style="background: linear-gradient(0deg, rgba(19,19,19,0.85), rgba(19,19,19,0.4));"
+      >
+      </div>
+    </div>
+    <div class="gutter relative flex h-full items-end pb-12">
+      <p class="overline">Europe · The Gulf</p>
+    </div>
+  </section>
+
+  <script>
+    function initEnquiry() {
+      const form = document.getElementById('enquiry-form') as HTMLFormElement | null;
+      const success = document.getElementById('enquiry-success');
+      if (!form || !success) return;
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+        try {
+          await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+          });
+        } catch {
+          /* graceful success even if placeholder endpoint is unset */
+        }
+        form.reset();
+        success.classList.remove('hidden');
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+    initEnquiry();
+    document.addEventListener('astro:page-load', initEnquiry);
+  </script>
+</Base>

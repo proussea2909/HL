@@ -1,0 +1,120 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const metaDescription =
+  description ??
+  'Senior independent counsel for luxury hospitality — hotel management agreements, branded residences, hospitality M&A and F&B integration across European & Gulf markets.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={metaDescription} />
+    <meta name="theme-color" content="#131313" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+
+    <!-- Fonts: display=swap + preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <ClientRouter />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[10000] focus:bg-bone focus:px-4 focus:py-2 focus:text-ink">
+      Skip to content
+    </a>
+
+    <Nav />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- ===================================================================
+         PROGRESSIVE ENHANCEMENT
+         Scroll-reveal is opt-in via the .reveal-ready class, added only when
+         IntersectionObserver + no reduced-motion. If this script never runs,
+         all content stays fully visible.
+         =================================================================== -->
+    <script>
+      function initReveals() {
+        const prefersReduced = window.matchMedia(
+          '(prefers-reduced-motion: reduce)'
+        ).matches;
+        const targets = document.querySelectorAll('[data-reveal]');
+        if (prefersReduced || !('IntersectionObserver' in window) || !targets.length) {
+          return;
+        }
+        document.body.classList.add('reveal-ready');
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                (entry.target as HTMLElement).classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+        );
+        targets.forEach((el, i) => {
+          // stagger items that share a parent
+          const delay = el.hasAttribute('data-reveal-delay')
+            ? el.getAttribute('data-reveal-delay')
+            : `${Math.min((i % 6) * 90, 540)}ms`;
+          (el as HTMLElement).style.setProperty('--reveal-delay', delay ?? '0ms');
+          io.observe(el);
+        });
+      }
+
+      // Sticky nav: shrink + raise background opacity past a scroll threshold.
+      function initNavScroll() {
+        const header = document.getElementById('site-nav');
+        if (!header) return;
+        const onScroll = () => {
+          if (window.scrollY > 24) header.classList.add('is-scrolled');
+          else header.classList.remove('is-scrolled');
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+
+      function boot() {
+        initReveals();
+        initNavScroll();
+      }
+
+      boot();
+      // Re-run after Astro view transitions swap the DOM.
+      document.addEventListener('astro:page-load', boot);
+    </script>
+  </body>
+</html>

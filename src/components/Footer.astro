@@ -1,0 +1,107 @@
+---
+import { site } from '../config';
+const year = new Date().getFullYear();
+
+const practiceLinks = [
+  { label: 'Hotel Management Agreements', href: '/practice#hma' },
+  { label: 'Branded Residences', href: '/practice#residences' },
+  { label: 'Hospitality M&A', href: '/practice#ma' },
+  { label: 'F&B Integration', href: '/practice#fnb' },
+];
+const pageLinks = [
+  { label: 'Practice', href: '/practice' },
+  { label: 'About', href: '/about' },
+  { label: 'Insights', href: '/insights' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<footer class="gutter hairline mt-12 pb-12 pt-20">
+  <div class="grid grid-cols-1 gap-12 md:grid-cols-12">
+    <!-- Blurb -->
+    <div class="md:col-span-5">
+      <p class="font-[var(--font-display)] text-2xl leading-tight text-bone">
+        {site.practitionerName}
+      </p>
+      <p class="mt-1 overline overline--plain text-brass">{site.discipline}</p>
+      <p class="mt-6 max-w-sm text-[0.95rem] text-bone-variant">
+        Independent senior counsel for luxury hospitality. Hotel management
+        agreements, branded residences, hospitality M&amp;A and F&amp;B
+        integration — the partner is the practice.
+      </p>
+      <p class="mt-6 text-[0.8rem] uppercase tracking-[0.12em] text-bone-muted">
+        Markets · {site.markets}
+      </p>
+    </div>
+
+    <!-- Practice -->
+    <nav class="md:col-span-3 md:col-start-7" aria-label="Practice areas">
+      <p class="overline mb-5">Practice</p>
+      <ul class="space-y-3">
+        {
+          practiceLinks.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                class="text-[0.95rem] text-bone-variant transition-colors hover:text-brass"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <!-- Pages + connect -->
+    <nav class="md:col-span-2" aria-label="Pages">
+      <p class="overline mb-5">Navigate</p>
+      <ul class="space-y-3">
+        {
+          pageLinks.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                class="text-[0.95rem] text-bone-variant transition-colors hover:text-brass"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="md:col-span-2">
+      <p class="overline mb-5">Connect</p>
+      <ul class="space-y-3">
+        <li>
+          <a
+            href={`mailto:${site.email}`}
+            class="text-[0.95rem] text-bone-variant transition-colors hover:text-brass"
+            >{site.email}</a
+          >
+        </li>
+        <li>
+          <!-- TODO: replace with LinkedIn profile URL in src/config.ts -->
+          <a
+            href={site.linkedin}
+            class="text-[0.95rem] text-bone-variant transition-colors hover:text-brass"
+            >LinkedIn</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div
+    class="hairline mt-16 flex flex-col gap-4 pt-8 text-[0.78rem] text-bone-muted md:flex-row md:items-center md:justify-between"
+  >
+    <p>© {year} {site.practitionerName}. References available on request.</p>
+    <div class="flex gap-6">
+      <!-- TODO: link to real policy pages -->
+      <a href="#" class="transition-colors hover:text-brass">Privacy</a>
+      <a href="#" class="transition-colors hover:text-brass">Legal Notice</a>
+    </div>
+  </div>
+</footer>
