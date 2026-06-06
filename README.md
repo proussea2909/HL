@@ -24,6 +24,18 @@ npm run preview    # preview the built ./dist locally
 The build in `./dist` is fully static and can be dropped onto Netlify, Vercel
 or Cloudflare Pages with no configuration. (No backend is required.)
 
+### Deploy
+
+**One-click (connect the repo):** `netlify.toml` and `vercel.json` are
+included, so connecting the GitHub repo to Netlify or Vercel needs no manual
+settings — the build command (`npm run build`) and output dir (`dist`) are
+picked up automatically. For **Cloudflare Pages**, set build command
+`npm run build` and output directory `dist` in the dashboard.
+
+**Drag-and-drop (fastest, no account linking):** run `npm run build`, then
+drag the `dist` folder onto <https://app.netlify.com/drop> for an instant
+public URL.
+
 ### Renders when opened directly from the filesystem
 
 The build is configured with `build.inlineStylesheets: 'always'` in
