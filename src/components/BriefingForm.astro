@@ -1,0 +1,99 @@
+---
+import { FORM_ENDPOINT } from '../config';
+const demo = FORM_ENDPOINT === '';
+---
+
+<div class="briefing">
+  <div class="briefing__text">
+    <p class="overline"><span class="dash"></span> Quarterly Briefing</p>
+    <h2 class="display-lg" style="margin-top:1.25rem">
+      A short, considered note. Four times a year.
+    </h2>
+    <p class="lede" style="margin-top:1.25rem; max-width:46ch">
+      Occasional writing on the agreements behind luxury hospitality — sent rarely, never
+      shared. Unsubscribe whenever you wish.
+    </p>
+  </div>
+
+  <div class="briefing__form-wrap">
+    <form
+      id="briefing-form"
+      class="briefing__form"
+      action={demo ? '#' : FORM_ENDPOINT}
+      method="POST"
+      data-demo={demo ? 'true' : 'false'}
+      novalidate
+    >
+      <input type="hidden" name="list" value="quarterly-briefing" />
+      <div class="field" style="margin-bottom:1.5rem">
+        <label for="bf-email">Email Address</label>
+        <input id="bf-email" name="email" type="email" autocomplete="email" required placeholder="you@organisation.com" />
+      </div>
+      <button type="submit" class="btn">
+        Subscribe
+        <span class="arrow" aria-hidden="true">→</span>
+      </button>
+    </form>
+
+    <div id="briefing-success" class="form-success" hidden>
+      <p class="overline"><span class="dash"></span> Subscribed</p>
+      <p style="margin-top:0.85rem; color:var(--color-bone-2)">
+        You are on the list. The next quarterly briefing will arrive in your inbox.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    function bindBriefing() {
+      var form = document.getElementById('briefing-form');
+      var success = document.getElementById('briefing-success');
+      if (!form || form.dataset.bound) return;
+      form.dataset.bound = '1';
+
+      form.addEventListener('submit', async function (e) {
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          e.preventDefault();
+          return;
+        }
+        e.preventDefault();
+        var isDemo = form.dataset.demo === 'true';
+        if (!isDemo) {
+          try {
+            await fetch(form.action, {
+              method: 'POST',
+              body: new FormData(form),
+              headers: { Accept: 'application/json' },
+            });
+          } catch (err) {}
+        }
+        form.hidden = true;
+        success.hidden = false;
+      });
+    }
+    bindBriefing();
+    document.addEventListener('astro:after-swap', bindBriefing);
+  })();
+</script>
+
+<style>
+  .briefing {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    border: 1px solid var(--color-line);
+    background: var(--color-ink-800);
+    padding: clamp(2rem, 5vw, 4.5rem);
+  }
+  .briefing__form-wrap {
+    width: 100%;
+  }
+  @media (max-width: 760px) {
+    .briefing {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

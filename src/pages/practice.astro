@@ -1,0 +1,220 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { pillars } from '../data/pillars';
+import { engagements, pricingNote } from '../data/engagements';
+import { site } from '../config';
+---
+
+<BaseLayout
+  title="Practice"
+  description="Luxury hospitality law in depth — Hotel Management Agreements, branded residences, hospitality M&A and F&B integration. How the work is structured and priced."
+>
+  <!-- PAGE HEADER -->
+  <header class="page-head shell">
+    <p class="overline reveal"><span class="dash"></span> Practice</p>
+    <h1 class="display-hero reveal" style="margin-top:1.5rem; --reveal-delay:80ms">
+      A narrow practice,<br />deeply held.
+    </h1>
+    <p class="lede measure reveal" style="margin-top:1.75rem; --reveal-delay:160ms">
+      Four areas, one specialism. The agreements behind luxury hospitality — negotiated by
+      the senior person, and structured so the deal, the brand and the F&amp;B sit
+      consistently together.
+    </p>
+  </header>
+
+  <!-- PILLARS — alternating image-left / image-right -->
+  {
+    pillars.map((p, i) => (
+      <section id={p.slug} class:list={['pillar-detail section-rhythm shell', { 'is-reversed': i % 2 === 1 }]}>
+        <div class="hairline pillar-detail__rule" />
+        <div class="pillar-detail__grid">
+          <div class="pillar-detail__media frame reveal">
+            <img src={p.image} alt={p.imageAlt} loading="lazy" width="1400" height="1050" />
+          </div>
+          <div class="pillar-detail__text">
+            <p class="overline reveal">
+              <span class="dash" /> {p.num} / {p.tag}
+            </p>
+            <h2 class="display-lg reveal" style="margin-top:1.25rem; --reveal-delay:80ms">
+              {p.title}
+            </h2>
+            <div class="reveal" style="--reveal-delay:140ms">
+              {p.body.map((para) => (
+                <p class="muted pillar-detail__para">{para}</p>
+              ))}
+            </div>
+            <div class="chips reveal" style="--reveal-delay:200ms">
+              {p.chips.map((c) => (
+                <span class="chip">{c}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- HOW THE WORK IS PRICED -->
+  <section class="section-rhythm shell hairline">
+    <div class="editorial">
+      <div class="lead">
+        <p class="overline reveal"><span class="dash"></span> Engagement</p>
+        <h2 class="display-xl reveal" style="margin-top:1.5rem; --reveal-delay:80ms">
+          How the work is priced.
+        </h2>
+      </div>
+      <div class="body">
+        <p class="muted measure reveal" style="--reveal-delay:120ms">
+          Fixed-fee by default. The model is chosen to fit the shape of the work — and to give
+          you certainty before it begins.
+        </p>
+      </div>
+    </div>
+
+    <ol class="pricing-list">
+      {
+        engagements.map((e, i) => (
+          <li class="pricing-row reveal" style={`--reveal-delay:${i * 80}ms`}>
+            <span class="pricing-row__num overline">{e.num}</span>
+            <div class="pricing-row__body">
+              <h3 class="pricing-row__title">
+                {e.title}
+                {e.anchor && <span class="pricing-row__flag">Structural anchor</span>}
+              </h3>
+              <p class="muted">{e.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="pricing-foot muted reveal">{pricingNote}</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="practice-cta shell">
+    <div class="practice-cta__inner reveal">
+      <h2 class="display-lg">Bring me the agreement on the table.</h2>
+      <div class="practice-cta__actions">
+        <a href="/contact" class="btn">Make an Enquiry <span class="arrow" aria-hidden="true">→</span></a>
+        <a href={`mailto:${site.email}`} class="link-arrow">{site.email}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-top: clamp(8rem, 16vw, 12rem);
+    padding-bottom: clamp(2rem, 5vw, 4rem);
+  }
+
+  .pillar-detail__rule {
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  }
+  .pillar-detail__grid {
+    display: grid;
+    grid-template-columns: 6fr 5fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .is-reversed .pillar-detail__media {
+    order: 2;
+  }
+  .pillar-detail__media {
+    aspect-ratio: 4 / 3;
+  }
+  .pillar-detail__text {
+    max-width: 54ch;
+  }
+  .pillar-detail__para {
+    margin-top: 1.25rem;
+  }
+  .pillar-detail__para:first-child {
+    margin-top: 1.5rem;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  /* PRICING */
+  .pricing-list {
+    list-style: none;
+    margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .pricing-row {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: clamp(1rem, 3vw, 3rem);
+    padding-block: clamp(1.75rem, 3.5vw, 2.75rem);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .pricing-row__num {
+    color: var(--color-brass);
+    padding-top: 0.4rem;
+  }
+  .pricing-row__title {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+    margin-bottom: 1rem;
+  }
+  .pricing-row__flag {
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-brass);
+    border: 1px solid var(--color-brass-dim);
+    padding: 0.3rem 0.6rem;
+  }
+  .pricing-row__body p {
+    max-width: 62ch;
+  }
+  .pricing-foot {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    max-width: 60ch;
+  }
+
+  /* CTA */
+  .practice-cta {
+    padding-block: clamp(4rem, 9vw, 8rem);
+  }
+  .practice-cta__inner {
+    border: 1px solid var(--color-line);
+    background: var(--color-ink-800);
+    padding: clamp(2.5rem, 6vw, 5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .practice-cta__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 860px) {
+    .pillar-detail__grid {
+      grid-template-columns: 1fr;
+    }
+    .is-reversed .pillar-detail__media {
+      order: 0;
+    }
+    .pricing-row {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+</style>

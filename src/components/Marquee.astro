@@ -1,0 +1,60 @@
+---
+import { marqueeItems } from '../data/marquee';
+// Duplicate the set so the -50% translate loops seamlessly.
+const items = [...marqueeItems, ...marqueeItems];
+---
+
+<section class="marquee-band" aria-label="Credentials">
+  <div class="marquee">
+    <div class="marquee__track" aria-hidden="true">
+      {
+        items.map((item) => (
+          <span class="marquee__item">
+            {item}
+            <span class="marquee__dot" aria-hidden="true" />
+          </span>
+        ))
+      }
+    </div>
+  </div>
+  <!-- Accessible, non-animated equivalent for screen readers -->
+  <ul class="sr-only">
+    {marqueeItems.map((item) => <li>{item}</li>)}
+  </ul>
+</section>
+
+<style>
+  .marquee-band {
+    border-block: 1px solid color-mix(in srgb, var(--color-line) 70%, transparent);
+    padding-block: 1.6rem;
+    background: var(--color-ink-900);
+  }
+  .marquee__item {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    color: var(--color-bone-2);
+    letter-spacing: 0.01em;
+    padding-inline: 1.75rem;
+  }
+  .marquee__dot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-brass-dim);
+    margin-left: 3.5rem;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

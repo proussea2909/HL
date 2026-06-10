@@ -1,0 +1,472 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Marquee from '../components/Marquee.astro';
+import { pillars } from '../data/pillars';
+import { engagements, pricingNote } from '../data/engagements';
+import { standard } from '../data/insights';
+import { site } from '../config';
+
+const teaser = standard.slice(0, 3);
+---
+
+<BaseLayout
+  description="Senior, independent counsel in luxury hospitality law — Hotel Management Agreements, branded residences, hospitality M&A and F&B integration. European & Gulf markets."
+>
+  <!-- ───────────────────────── HERO ───────────────────────── -->
+  <section class="hero">
+    <div class="frame frame--hero hero__media" aria-hidden="true">
+      <!-- TODO: replace with a licensed, dark/high-contrast architectural image. -->
+      <img
+        src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2000&auto=format&fit=crop"
+        alt=""
+        fetchpriority="high"
+        width="2000"
+        height="1333"
+      />
+    </div>
+    <div class="hero__content shell">
+      <div class="hero__inner">
+        <p class="overline reveal">
+          <span class="dash"></span> {site.overline} · {site.markets}
+        </p>
+        <h1 class="display-hero hero__title reveal" style="--reveal-delay:80ms">
+          The partner is the practice.
+        </h1>
+        <p class="lede hero__lede reveal" style="--reveal-delay:160ms">
+          Three decades of luxury hospitality law — Hotel Management Agreements, branded
+          residences, M&amp;A and F&amp;B integration — handled, end to end, by the senior
+          person who has negotiated them before.
+        </p>
+        <div class="hero__cta reveal" style="--reveal-delay:240ms">
+          <a href="/contact" class="btn">Start a Conversation <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+    <a href="#difference" class="hero__scroll" aria-label="Scroll to content">
+      <span class="overline">Scroll</span>
+      <span class="hero__scroll-line" aria-hidden="true"></span>
+    </a>
+  </section>
+
+  <!-- ─────────────────────── THE DIFFERENCE ─────────────────────── -->
+  <section id="difference" class="section-rhythm shell">
+    <div class="editorial">
+      <div class="lead">
+        <p class="overline reveal"><span class="dash"></span> The Difference</p>
+        <h2 class="display-xl reveal" style="margin-top:1.5rem; --reveal-delay:80ms">
+          You are buying the lawyer, not the firm.
+        </h2>
+      </div>
+      <div class="body">
+        <div class="reveal" style="--reveal-delay:120ms">
+          <p class="lede measure">
+            No associates. No leverage. No churn. The senior person you meet is the senior
+            person who negotiates your agreement — the one who has sat across the table from
+            these operators, on these documents, many times before.
+          </p>
+          <p class="muted measure" style="margin-top:1.5rem">
+            At this level the value is judgment, not headcount. A generalist negotiating their
+            first Marriott management agreement is up against a counterparty who does it every
+            week. The point of this practice is that the person on your side does it every week
+            too — and stays with you from first call to signing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────── PILLARS ─────────────────────── -->
+  <section class="section-rhythm shell hairline">
+    <div class="pillars-head editorial">
+      <div class="lead">
+        <p class="overline reveal"><span class="dash"></span> Practice</p>
+        <h2 class="display-xl reveal" style="margin-top:1.5rem; --reveal-delay:80ms">
+          Four areas, one specialism.
+        </h2>
+      </div>
+      <div class="body">
+        <p class="muted measure reveal" style="--reveal-delay:120ms">
+          A deliberately narrow practice in luxury hospitality — deep where it counts, and
+          structured so the agreements, the deal and the F&amp;B all sit consistently together.
+        </p>
+      </div>
+    </div>
+
+    <div class="pillars-grid">
+      {
+        pillars.map((p, i) => (
+          <a href={`/practice#${p.slug}`} class="pillar card reveal" style={`--reveal-delay:${i * 90}ms`}>
+            <div class="pillar__head">
+              <span class="overline">{p.num} / {p.tag}</span>
+              <span class="pillar__arrow" aria-hidden="true">→</span>
+            </div>
+            <h3 class="pillar__title">{p.title}</h3>
+            <p class="pillar__summary muted">{p.summary}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ─────────────────────── MARQUEE ─────────────────────── -->
+  <Marquee />
+
+  <!-- ─────────────────────── STORY BLOCK ─────────────────────── -->
+  <section class="section-rhythm shell">
+    <div class="story">
+      <div class="story__media frame reveal">
+        <!-- TODO: replace with a licensed image. -->
+        <img
+          src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1200&auto=format&fit=crop"
+          alt="A quiet, refined hotel interior in low light."
+          loading="lazy"
+          width="1200"
+          height="1500"
+        />
+      </div>
+      <div class="story__text">
+        <p class="overline reveal"><span class="dash"></span> The Approach</p>
+        <h2 class="display-lg reveal" style="margin-top:1.25rem; --reveal-delay:80ms">
+          Restraint is the signal of seniority.
+        </h2>
+        <p class="lede reveal" style="margin-top:1.5rem; --reveal-delay:140ms">
+          Former partner at major international firms — Mayer Brown, Gowlings, Squire Patton
+          Boggs — now an independent specialist by choice.
+        </p>
+        <p class="muted reveal" style="margin-top:1.25rem; --reveal-delay:200ms">
+          The decision to work independently is the whole proposition: the client receives the
+          senior person’s time and judgment directly, on a fixed fee, without paying for a
+          structure they do not need. Experience across deals with Radisson, Accor, Marriott,
+          Four Seasons and their peers, active across European and Gulf markets.
+        </p>
+        <div class="reveal" style="margin-top:2rem; --reveal-delay:260ms">
+          <a href="/about" class="link-arrow">The Practitioner <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────── ENGAGEMENT MODELS ─────────────────────── -->
+  <section class="section-rhythm shell hairline">
+    <div class="editorial">
+      <div class="lead">
+        <p class="overline reveal"><span class="dash"></span> Engagement</p>
+        <h2 class="display-xl reveal" style="margin-top:1.5rem; --reveal-delay:80ms">
+          Priced for certainty.
+        </h2>
+      </div>
+      <div class="body">
+        <p class="muted measure reveal" style="--reveal-delay:120ms">
+          Three ways to work together. Fixed-fee by default, because the work is known and the
+          experience is real.
+        </p>
+      </div>
+    </div>
+
+    <div class="engagements-grid">
+      {
+        engagements.map((e, i) => (
+          <article class:list={['engagement card reveal', { 'engagement--anchor': e.anchor }]} style={`--reveal-delay:${i * 90}ms`}>
+            {e.anchor && <span class="engagement__flag overline">Anchor</span>}
+            <span class="overline">{e.num} / {e.kicker}</span>
+            <h3 class="engagement__title">{e.title}</h3>
+            <p class="muted">{e.body}</p>
+            <ul class="engagement__points">
+              {e.points.map((pt) => (
+                <li>{pt}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+    <p class="pricing-note muted reveal">{pricingNote}</p>
+  </section>
+
+  <!-- ─────────────────────── INSIGHTS TEASER ─────────────────────── -->
+  <section class="section-rhythm shell hairline">
+    <div class="insights-head">
+      <div>
+        <p class="overline reveal"><span class="dash"></span> Insights</p>
+        <h2 class="display-xl reveal" style="margin-top:1.25rem; --reveal-delay:80ms">
+          Notes from the table.
+        </h2>
+      </div>
+      <a href="/insights" class="link-arrow reveal" style="--reveal-delay:140ms">All Insights <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="insights-grid">
+      {
+        teaser.map((a, i) => (
+          <a href={`/insights/${a.slug}`} class="insight card reveal" style={`--reveal-delay:${i * 90}ms`}>
+            <span class="overline">{a.category}</span>
+            <h3 class="insight__title">{a.title}</h3>
+            <p class="muted insight__stand">{a.standfirst}</p>
+            <span class="insight__meta overline">{a.readingTime} read</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ─────────────────────── CLOSING CTA ─────────────────────── -->
+  <section class="closing">
+    <div class="shell">
+      <div class="closing__inner reveal">
+        <p class="overline"><span class="dash"></span> Enquiries</p>
+        <h2 class="display-hero closing__title">
+          The senior person is already at the table.
+        </h2>
+        <p class="lede measure" style="margin-inline:auto">
+          Tell me what you are facing. Enquiries are read personally and treated in strict
+          confidence.
+        </p>
+        <div class="closing__cta">
+          <a href="/contact" class="btn">Make an Enquiry <span class="arrow" aria-hidden="true">→</span></a>
+          <a href={`mailto:${site.email}`} class="link-arrow">{site.email}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: clamp(4rem, 9vw, 8rem);
+    overflow: hidden;
+  }
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero__media img {
+    height: 100%;
+  }
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+  .hero__inner {
+    max-width: 62ch;
+  }
+  .hero__title {
+    margin-top: 1.5rem;
+  }
+  .hero__lede {
+    margin-top: 1.75rem;
+    max-width: 54ch;
+  }
+  .hero__cta {
+    margin-top: 2.5rem;
+  }
+  .hero__scroll {
+    position: absolute;
+    right: var(--spacing-gutter);
+    bottom: clamp(4rem, 9vw, 8rem);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-bone-muted);
+  }
+  .hero__scroll-line {
+    width: 1px;
+    height: 56px;
+    background: linear-gradient(to bottom, var(--color-brass), transparent);
+  }
+  @media (max-width: 860px) {
+    .hero__scroll {
+      display: none;
+    }
+  }
+
+  /* PILLARS */
+  .pillars-head {
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--color-line);
+    border: 1px solid var(--color-line);
+  }
+  .pillar {
+    border: none;
+    background: var(--color-ink);
+    display: flex;
+    flex-direction: column;
+    min-height: 16rem;
+    padding: clamp(1.75rem, 3vw, 2.75rem);
+  }
+  .pillar:hover {
+    background: var(--color-ink-800);
+  }
+  .pillar__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pillar__arrow {
+    color: var(--color-brass);
+    transition: transform 0.4s ease;
+  }
+  .pillar:hover .pillar__arrow {
+    transform: translate(4px, -4px);
+  }
+  .pillar__title {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    margin-top: auto;
+    padding-top: 2.5rem;
+  }
+  .pillar__summary {
+    margin-top: 1rem;
+    font-size: 0.98rem;
+  }
+
+  /* STORY */
+  .story {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .story__media {
+    aspect-ratio: 4 / 5;
+  }
+  .story__text {
+    max-width: 52ch;
+  }
+
+  /* ENGAGEMENTS */
+  .engagements-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 1.75rem);
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+  .engagement {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .engagement--anchor {
+    border-color: var(--color-brass-dim);
+  }
+  .engagement__flag {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    background: var(--color-brass);
+    color: var(--color-ink);
+    padding: 0.35rem 0.7rem;
+    font-size: 0.62rem;
+  }
+  .engagement__title {
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+    margin: 1rem 0 1rem;
+  }
+  .engagement__points {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid var(--color-line);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .engagement__points li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: 0.9rem;
+    color: var(--color-bone-2);
+  }
+  .engagement__points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 5px;
+    height: 1px;
+    background: var(--color-brass);
+  }
+  .pricing-note {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    max-width: 60ch;
+  }
+
+  /* INSIGHTS */
+  .insights-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+  .insight {
+    display: flex;
+    flex-direction: column;
+    min-height: 17rem;
+  }
+  .insight__title {
+    font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+    line-height: 1.15;
+    margin: 1rem 0;
+  }
+  .insight__stand {
+    font-size: 0.92rem;
+  }
+  .insight__meta {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    color: var(--color-brass-dim);
+  }
+
+  /* CLOSING */
+  .closing {
+    padding-block: clamp(5rem, 12vw, 11rem);
+    text-align: center;
+    background: var(--color-ink-900);
+    border-top: 1px solid var(--color-line);
+  }
+  .closing__inner {
+    max-width: 60ch;
+    margin-inline: auto;
+  }
+  .closing__title {
+    margin: 1.5rem 0;
+  }
+  .closing__cta {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .pillars-grid,
+    .engagements-grid,
+    .insights-grid {
+      grid-template-columns: 1fr;
+    }
+    .story {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
