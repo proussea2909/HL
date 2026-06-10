@@ -51,3 +51,17 @@ export const nav = [
  * success state without sending anything. See README.md → "Wiring the contact form".
  */
 export const FORM_ENDPOINT = ''; // e.g. 'https://formspree.io/f/abcdwxyz'
+
+/**
+ * Base-path-aware link helper. The site may be served from a subpath (e.g. GitHub
+ * Pages at /HL/) or from a domain root (/). Astro exposes the configured base as
+ * import.meta.env.BASE_URL, so all internal links flow through this to stay correct
+ * in every deployment. External links, mailto and #anchors pass through untouched.
+ */
+export function link(path: string): string {
+  const base = import.meta.env.BASE_URL; // '/' or '/HL/'
+  if (!path) return base;
+  if (/^(https?:|mailto:|tel:|#)/i.test(path)) return path;
+  const b = base.endsWith('/') ? base.slice(0, -1) : base; // '' or '/HL'
+  return b + (path.startsWith('/') ? path : '/' + path);
+}

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { articles } from '../../data/insights';
-import { site } from '../../config';
+import { site, link } from '../../config';
 
 export function getStaticPaths() {
   return articles.map((article) => ({
@@ -17,7 +17,7 @@ const more = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
 <BaseLayout title={article.title} description={article.standfirst}>
   <article class="article">
     <header class="article__head shell">
-      <a href="/insights" class="link-arrow article__back">
+      <a href={link('/insights')} class="link-arrow article__back">
         <span class="arrow" aria-hidden="true" style="transform:scaleX(-1)">→</span> All Insights
       </a>
       <p class="overline article__cat reveal"><span class="dash"></span> {article.category}</p>
@@ -48,12 +48,12 @@ const more = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
   <section class="section-rhythm shell hairline">
     <div class="more-head">
       <p class="overline reveal"><span class="dash"></span> More Insights</p>
-      <a href="/insights" class="link-arrow reveal">All Insights <span class="arrow" aria-hidden="true">→</span></a>
+      <a href={link('/insights')} class="link-arrow reveal">All Insights <span class="arrow" aria-hidden="true">→</span></a>
     </div>
     <div class="more-grid">
       {
         more.map((a, i) => (
-          <a href={`/insights/${a.slug}`} class="insight card reveal" style={`--reveal-delay:${i * 80}ms`}>
+          <a href={link(`/insights/${a.slug}`)} class="insight card reveal" style={`--reveal-delay:${i * 80}ms`}>
             <span class="overline">{a.category}</span>
             <h3 class="insight__title">{a.title}</h3>
             <p class="muted insight__stand">{a.standfirst}</p>
@@ -72,7 +72,7 @@ const more = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
         If a version of this is on your table now, the senior person who wrote it can help.
       </p>
       <div class="article-cta__actions">
-        <a href="/contact" class="btn">Make an Enquiry <span class="arrow" aria-hidden="true">→</span></a>
+        <a href={link('/contact')} class="btn">Make an Enquiry <span class="arrow" aria-hidden="true">→</span></a>
         <a href={`mailto:${site.email}`} class="link-arrow">{site.email}</a>
       </div>
     </div>
