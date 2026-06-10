@@ -1,0 +1,185 @@
+---
+import { nav, site } from '../config';
+import { pillars } from '../data/pillars';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="site-footer__top hairline">
+      <div class="site-footer__brand">
+        <a href="/" class="wordmark-foot" aria-label={`${site.brandFull} — home`}>
+          {site.brand}<span class="wordmark-foot__dot" aria-hidden="true"></span>
+        </a>
+        <p class="overline" style="margin-top:1rem">{site.overline}</p>
+        <p class="site-footer__blurb">
+          A senior, independent legal practice in luxury hospitality. The partner is the
+          practice — the client always works directly with the person who has negotiated the
+          agreements they face.
+        </p>
+        <a href={`mailto:${site.email}`} class="site-footer__email">{site.email}</a>
+      </div>
+
+      <nav class="site-footer__col" aria-label="Practice areas">
+        <p class="site-footer__heading overline">Practice</p>
+        <ul>
+          {
+            pillars.map((p) => (
+              <li>
+                <a href={`/practice#${p.slug}`}>{p.title}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav class="site-footer__col" aria-label="Pages">
+        <p class="site-footer__heading overline">Navigate</p>
+        <ul>
+          {
+            nav.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav class="site-footer__col" aria-label="Connect">
+        <p class="site-footer__heading overline">Connect</p>
+        <ul>
+          <li><a href={`mailto:${site.email}`}>Email</a></li>
+          <li>
+            <!-- TODO: replace href with the practitioner's LinkedIn URL. -->
+            <a href={site.linkedin} aria-label="LinkedIn (placeholder)">LinkedIn</a>
+          </li>
+          <li><a href="/contact">Enquire</a></li>
+        </ul>
+        <p class="site-footer__markets overline">{site.markets}</p>
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom hairline">
+      <p class="site-footer__copy">
+        © {year} {site.practitioner}. References available on request.
+      </p>
+      <div class="site-footer__legal">
+        <!-- TODO: link to real Privacy & Legal Notice pages. -->
+        <a href="#">Privacy</a>
+        <span aria-hidden="true">·</span>
+        <a href="#">Legal Notice</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-ink-900);
+    margin-top: clamp(4rem, 8vw, 8rem);
+  }
+  .site-footer__top {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    padding-block: clamp(3.5rem, 6vw, 6rem);
+  }
+  .wordmark-foot {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--color-bone);
+  }
+  .wordmark-foot__dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-brass);
+    margin-left: 4px;
+    vertical-align: super;
+  }
+  .site-footer__blurb {
+    margin-top: 1.25rem;
+    max-width: 38ch;
+    color: var(--color-bone-2);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+  .site-footer__email {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: var(--color-bone);
+    border-bottom: 1px solid var(--color-line-2);
+    padding-bottom: 2px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+  .site-footer__email:hover {
+    color: var(--color-brass);
+    border-color: var(--color-brass);
+  }
+
+  .site-footer__heading {
+    margin-bottom: 1.4rem;
+  }
+  .site-footer__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .site-footer__col a {
+    color: var(--color-bone-2);
+    font-size: 0.92rem;
+    transition: color 0.3s ease;
+  }
+  .site-footer__col a:hover {
+    color: var(--color-bone);
+  }
+  .site-footer__markets {
+    margin-top: 1.75rem;
+    color: var(--color-brass-dim);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.75rem;
+    flex-wrap: wrap;
+  }
+  .site-footer__copy,
+  .site-footer__legal {
+    font-size: 0.8rem;
+    color: var(--color-bone-muted);
+    letter-spacing: 0.02em;
+  }
+  .site-footer__legal {
+    display: flex;
+    gap: 0.75rem;
+  }
+  .site-footer__legal a {
+    transition: color 0.3s ease;
+  }
+  .site-footer__legal a:hover {
+    color: var(--color-bone);
+  }
+
+  @media (max-width: 860px) {
+    .site-footer__top {
+      grid-template-columns: 1fr 1fr;
+    }
+    .site-footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 520px) {
+    .site-footer__top {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

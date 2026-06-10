@@ -1,0 +1,256 @@
+---
+import { nav, site } from '../config';
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<header id="site-header" class="site-header">
+  <div class="site-header__inner shell">
+    <a href="/" class="wordmark" aria-label={`${site.brandFull} — home`}>
+      <span class="wordmark__name">{site.brand}</span>
+      <span class="wordmark__dot" aria-hidden="true"></span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={['nav-link', { 'is-current': isActive(item.href) }]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="/contact" class="btn btn--enquire">Enquire</a>
+      <button
+        id="menu-toggle"
+        class="menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <span class="menu-toggle__bar"></span>
+        <span class="menu-toggle__bar"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Full-screen mobile menu -->
+<div id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation">
+  <nav class="mobile-menu__inner shell" aria-label="Mobile primary">
+    <ul>
+      {
+        nav.map((item, i) => (
+          <li style={`--i:${i}`}>
+            <a href={item.href} class:list={['mobile-link', { 'is-current': isActive(item.href) }]}>
+              <span class="mobile-link__num">0{i + 1}</span>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a href="/contact" class="btn mobile-menu__cta">Enquire</a>
+    <p class="mobile-menu__foot overline">{site.markets}</p>
+  </nav>
+</div>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: 100;
+    border-bottom: 1px solid transparent;
+    transition: background-color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+  }
+  .site-header.is-scrolled {
+    background-color: color-mix(in srgb, var(--color-ink-900) 82%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom-color: color-mix(in srgb, var(--color-line) 60%, transparent);
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    transition: padding-block 0.4s ease;
+  }
+  .site-header.is-scrolled .site-header__inner {
+    padding-block: 1rem;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.28rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.01em;
+    color: var(--color-bone);
+  }
+  .wordmark__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-brass);
+    transform: translateY(-2px);
+  }
+
+  .nav-desktop ul {
+    display: flex;
+    gap: clamp(1.4rem, 2.6vw, 2.8rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-link {
+    position: relative;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-bone-2);
+    padding-block: 0.35rem;
+    transition: color 0.3s ease;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-brass);
+    transition: width 0.35s ease;
+  }
+  .nav-link:hover {
+    color: var(--color-bone);
+  }
+  .nav-link:hover::after,
+  .nav-link.is-current::after {
+    width: 100%;
+  }
+  .nav-link.is-current {
+    color: var(--color-bone);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .btn--enquire {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.72rem;
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid var(--color-line);
+    cursor: pointer;
+  }
+  .menu-toggle__bar {
+    width: 18px;
+    height: 1px;
+    margin-inline: auto;
+    background: var(--color-bone);
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+  .menu-toggle[aria-expanded='true'] .menu-toggle__bar:first-child {
+    transform: translateY(3.5px) rotate(45deg);
+  }
+  .menu-toggle[aria-expanded='true'] .menu-toggle__bar:last-child {
+    transform: translateY(-3.5px) rotate(-45deg);
+  }
+
+  /* ── Full-screen mobile menu ── */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: var(--color-ink-900);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
+    display: flex;
+    align-items: center;
+  }
+  .mobile-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .mobile-menu__inner {
+    width: 100%;
+    padding-top: 5rem;
+  }
+  .mobile-menu ul {
+    list-style: none;
+    margin: 0 0 2.5rem;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .mobile-menu li {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .mobile-link {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 9vw, 3rem);
+    color: var(--color-bone);
+    padding-block: 1.1rem;
+    transition: color 0.3s ease, padding-inline-start 0.4s ease;
+  }
+  .mobile-link__num {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--color-brass);
+  }
+  .mobile-link:hover,
+  .mobile-link.is-current {
+    color: var(--color-brass);
+    padding-inline-start: 0.5rem;
+  }
+  .mobile-menu__cta {
+    width: 100%;
+    justify-content: center;
+  }
+  .mobile-menu__foot {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 860px) {
+    .nav-desktop,
+    .btn--enquire {
+      display: none;
+    }
+    .menu-toggle {
+      display: flex;
+    }
+  }
+</style>

@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../config';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Make an enquiry. Senior, independent counsel in luxury hospitality law across European and Gulf markets. All enquiries treated in strict confidence."
+>
+  <section class="contact shell">
+    <div class="contact__grid">
+      <!-- LEFT: invitation -->
+      <div class="contact__left">
+        <p class="overline reveal"><span class="dash"></span> Contact</p>
+        <h1 class="display-xl reveal" style="margin-top:1.5rem; --reveal-delay:80ms">
+          Tell me what is on the table.
+        </h1>
+        <p class="lede reveal" style="margin-top:1.75rem; --reveal-delay:140ms">
+          An agreement to negotiate, a structure to pressure-test, a deal to lead — start
+          wherever you are. Enquiries are read personally, usually answered within one business
+          day, and treated in strict confidence.
+        </p>
+
+        <div class="contact__direct reveal" style="--reveal-delay:200ms">
+          <div class="contact__line">
+            <span class="overline">Direct</span>
+            <a href={`mailto:${site.email}`} class="contact__email">{site.email}</a>
+          </div>
+          <div class="contact__line">
+            <span class="overline">Markets</span>
+            <p class="contact__markets">European &amp; Gulf hospitality</p>
+          </div>
+          <div class="contact__line">
+            <span class="overline">Model</span>
+            <p class="contact__markets">Fixed-fee by default · indicative fees on enquiry</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: form -->
+      <div class="contact__right reveal" style="--reveal-delay:160ms">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL-BLEED IMAGE with quiet jurisdiction caption -->
+  <section class="contact-image">
+    <div class="frame frame--hero contact-image__frame">
+      <!-- TODO: replace with a licensed, dark/high-contrast architectural image. -->
+      <img
+        src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2000&auto=format&fit=crop"
+        alt="A vast, quiet landscape at dusk."
+        loading="lazy"
+        width="2000"
+        height="1125"
+      />
+      <p class="contact-image__caption overline">Europe · The Gulf</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact {
+    padding-top: clamp(8rem, 16vw, 12rem);
+    padding-bottom: clamp(3rem, 6vw, 6rem);
+  }
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .contact__left {
+    max-width: 44ch;
+  }
+  .contact__direct {
+    margin-top: 3rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .contact__line {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    padding-block: 1.4rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .contact__line .overline {
+    color: var(--color-brass-dim);
+  }
+  .contact__email {
+    color: var(--color-bone);
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--color-line-2);
+    padding-bottom: 2px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+    word-break: break-word;
+  }
+  .contact__email:hover {
+    color: var(--color-brass);
+    border-color: var(--color-brass);
+  }
+  .contact__markets {
+    color: var(--color-bone-2);
+  }
+
+  .contact__right {
+    border: 1px solid var(--color-line);
+    background: var(--color-ink-800);
+    padding: clamp(1.75rem, 3.5vw, 3rem);
+  }
+
+  /* FULL-BLEED IMAGE */
+  .contact-image {
+    padding-top: clamp(2rem, 5vw, 4rem);
+  }
+  .contact-image__frame {
+    position: relative;
+    height: clamp(20rem, 45vh, 32rem);
+  }
+  .contact-image__frame img {
+    height: 100%;
+  }
+  .contact-image__caption {
+    position: absolute;
+    left: var(--spacing-gutter);
+    bottom: clamp(1.5rem, 3vw, 2.5rem);
+    z-index: 2;
+    color: var(--color-bone-muted);
+  }
+
+  @media (max-width: 860px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+    }
+    .contact__left {
+      max-width: none;
+    }
+  }
+</style>

@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { articles } from '../../data/insights';
+import { site } from '../../config';
+
+export function getStaticPaths() {
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const more = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
+---
+
+<BaseLayout title={article.title} description={article.standfirst}>
+  <article class="article">
+    <header class="article__head shell">
+      <a href="/insights" class="link-arrow article__back">
+        <span class="arrow" aria-hidden="true" style="transform:scaleX(-1)">→</span> All Insights
+      </a>
+      <p class="overline article__cat reveal"><span class="dash"></span> {article.category}</p>
+      <h1 class="display-xl reveal" style="margin-top:1.25rem; --reveal-delay:80ms">{article.title}</h1>
+      <p class="lede measure reveal" style="margin-top:1.5rem; --reveal-delay:140ms">{article.standfirst}</p>
+      <p class="article__meta overline reveal" style="--reveal-delay:200ms">
+        {article.date} · {article.readingTime} read
+      </p>
+    </header>
+
+    <div class="article__media frame shell-frame reveal">
+      <img src={article.image} alt={article.imageAlt} loading="lazy" width="1500" height="844" />
+    </div>
+
+    <div class="article__body shell">
+      {article.body.map((para) => <p class="reveal">{para}</p>)}
+
+      <p class="article__note">
+        <em
+          >Written from practice, in general terms. Nothing here is legal advice or creates a
+          lawyer–client relationship.</em
+        >
+      </p>
+    </div>
+  </article>
+
+  <!-- MORE -->
+  <section class="section-rhythm shell hairline">
+    <div class="more-head">
+      <p class="overline reveal"><span class="dash"></span> More Insights</p>
+      <a href="/insights" class="link-arrow reveal">All Insights <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+    <div class="more-grid">
+      {
+        more.map((a, i) => (
+          <a href={`/insights/${a.slug}`} class="insight card reveal" style={`--reveal-delay:${i * 80}ms`}>
+            <span class="overline">{a.category}</span>
+            <h3 class="insight__title">{a.title}</h3>
+            <p class="muted insight__stand">{a.standfirst}</p>
+            <span class="insight__meta overline">{a.readingTime} read</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="article-cta shell">
+    <div class="article-cta__inner reveal">
+      <h2 class="display-lg">Facing this in practice?</h2>
+      <p class="muted measure" style="margin-top:1rem">
+        If a version of this is on your table now, the senior person who wrote it can help.
+      </p>
+      <div class="article-cta__actions">
+        <a href="/contact" class="btn">Make an Enquiry <span class="arrow" aria-hidden="true">→</span></a>
+        <a href={`mailto:${site.email}`} class="link-arrow">{site.email}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .article__head {
+    padding-top: clamp(7rem, 14vw, 11rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+    max-width: 60rem;
+  }
+  .article__back {
+    margin-bottom: 2.5rem;
+  }
+  .article__meta {
+    margin-top: 2rem;
+    color: var(--color-brass-dim);
+  }
+
+  .shell-frame {
+    margin-inline: var(--spacing-gutter);
+    aspect-ratio: 16 / 9;
+    max-height: 60vh;
+  }
+
+  .article__body {
+    max-width: 44rem;
+    margin-inline: auto;
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+  }
+  .article__body p {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: var(--color-bone-2);
+    margin-bottom: 1.6rem;
+  }
+  .article__body p:first-child::first-letter {
+    font-family: var(--font-display);
+    font-size: 3.4em;
+    line-height: 0.8;
+    float: left;
+    padding: 0.05em 0.12em 0 0;
+    color: var(--color-bone);
+  }
+  .article__note {
+    margin-top: 2.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--color-line);
+    font-size: 0.9rem !important;
+    color: var(--color-bone-muted) !important;
+  }
+
+  /* MORE */
+  .more-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .more-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+  .insight {
+    display: flex;
+    flex-direction: column;
+    min-height: 16rem;
+  }
+  .insight__title {
+    font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+    line-height: 1.15;
+    margin: 1rem 0;
+  }
+  .insight__stand {
+    font-size: 0.9rem;
+  }
+  .insight__meta {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    color: var(--color-brass-dim);
+  }
+
+  /* CTA */
+  .article-cta {
+    padding-block: clamp(4rem, 9vw, 8rem);
+  }
+  .article-cta__inner {
+    border: 1px solid var(--color-line);
+    background: var(--color-ink-800);
+    padding: clamp(2.5rem, 6vw, 5rem);
+  }
+  .article-cta__actions {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 860px) {
+    .more-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

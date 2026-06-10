@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BriefingForm from '../components/BriefingForm.astro';
+import { featured, standard } from '../data/insights';
+
+const firstRow = standard.slice(0, 3);
+const secondRow = standard.slice(3);
+---
+
+<BaseLayout
+  title="Insights"
+  description="Writing on the agreements behind luxury hospitality — HMA termination rights, the operator–residential interface, structuring hospitality M&A, F&B licensing and the Gulf market."
+>
+  <!-- HEADER -->
+  <header class="page-head shell">
+    <p class="overline reveal"><span class="dash"></span> Insights</p>
+    <h1 class="display-hero reveal" style="margin-top:1.5rem; --reveal-delay:80ms">
+      Notes from the table.
+    </h1>
+    <p class="lede measure reveal" style="margin-top:1.75rem; --reveal-delay:160ms">
+      Occasional writing on the documents that define luxury hospitality — what actually moves
+      in a negotiation, and why. Specific, practical, and free of jargon.
+    </p>
+  </header>
+
+  <!-- FEATURED -->
+  <section class="shell">
+    <a href={`/insights/${featured.slug}`} class="featured reveal">
+      <div class="featured__media frame">
+        <img src={featured.image} alt={featured.imageAlt} loading="lazy" width="1500" height="1000" />
+      </div>
+      <div class="featured__text">
+        <span class="overline featured__cat">{featured.category} · Featured</span>
+        <h2 class="featured__title display-lg">{featured.title}</h2>
+        <p class="lede featured__stand">{featured.standfirst}</p>
+        <span class="link-arrow featured__more">Read the piece <span class="arrow" aria-hidden="true">→</span></span>
+        <span class="featured__meta overline">{featured.date} · {featured.readingTime} read</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- GRID -->
+  <section class="section-rhythm shell">
+    <div class="insights-grid">
+      {
+        firstRow.map((a, i) => (
+          <a href={`/insights/${a.slug}`} class="insight card reveal" style={`--reveal-delay:${i * 80}ms`}>
+            <span class="overline">{a.category}</span>
+            <h3 class="insight__title">{a.title}</h3>
+            <p class="muted insight__stand">{a.standfirst}</p>
+            <span class="insight__meta overline">{a.date} · {a.readingTime} read</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="insights-grid insights-grid--two">
+      {
+        secondRow.map((a, i) => (
+          <a href={`/insights/${a.slug}`} class="insight card reveal" style={`--reveal-delay:${i * 80}ms`}>
+            <span class="overline">{a.category}</span>
+            <h3 class="insight__title">{a.title}</h3>
+            <p class="muted insight__stand">{a.standfirst}</p>
+            <span class="insight__meta overline">{a.date} · {a.readingTime} read</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- BRIEFING -->
+  <section class="section-rhythm shell">
+    <div class="reveal">
+      <BriefingForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-top: clamp(8rem, 16vw, 12rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  /* FEATURED */
+  .featured {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+    border-top: 1px solid var(--color-line);
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+  }
+  .featured__media {
+    aspect-ratio: 3 / 2;
+  }
+  .featured__text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 48ch;
+  }
+  .featured__cat {
+    color: var(--color-brass);
+  }
+  .featured__title {
+    line-height: 1.1;
+  }
+  .featured__meta {
+    color: var(--color-brass-dim);
+  }
+  .featured:hover .featured__title {
+    color: #fff;
+  }
+
+  /* GRID */
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+  .insights-grid--two {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: clamp(1rem, 2vw, 1.75rem);
+  }
+  .insight {
+    display: flex;
+    flex-direction: column;
+    min-height: 18rem;
+  }
+  .insight__title {
+    font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+    line-height: 1.15;
+    margin: 1rem 0;
+  }
+  .insight__stand {
+    font-size: 0.92rem;
+  }
+  .insight__meta {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    color: var(--color-brass-dim);
+  }
+
+  @media (max-width: 860px) {
+    .featured {
+      grid-template-columns: 1fr;
+    }
+    .insights-grid,
+    .insights-grid--two {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

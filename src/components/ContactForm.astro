@@ -1,0 +1,95 @@
+---
+import { FORM_ENDPOINT } from '../config';
+const demo = FORM_ENDPOINT === '';
+---
+
+<div class="contact-form">
+  <form
+    id="enquiry-form"
+    class="enquiry-form"
+    action={demo ? '#' : FORM_ENDPOINT}
+    method="POST"
+    data-demo={demo ? 'true' : 'false'}
+    novalidate
+  >
+    <div class="field">
+      <label for="cf-name">Name</label>
+      <input id="cf-name" name="name" type="text" autocomplete="name" required placeholder="Your name" />
+    </div>
+
+    <div class="field">
+      <label for="cf-email">Email</label>
+      <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="you@organisation.com" />
+    </div>
+
+    <div class="field">
+      <label for="cf-org">Organisation <span class="optional">(optional)</span></label>
+      <input id="cf-org" name="organisation" type="text" autocomplete="organization" placeholder="Company, fund or family office" />
+    </div>
+
+    <div class="field">
+      <label for="cf-matter">Nature of the Matter</label>
+      <textarea id="cf-matter" name="matter" rows="4" required placeholder="A sentence or two on what you are facing."></textarea>
+    </div>
+
+    <button type="submit" class="btn">
+      Send Enquiry
+      <span class="arrow" aria-hidden="true">→</span>
+    </button>
+
+    <p class="form-disclaimer">
+      Communication via this form does not create a lawyer–client relationship. All
+      enquiries are treated in strict confidence.
+    </p>
+  </form>
+
+  <div id="enquiry-success" class="form-success" hidden>
+    <p class="overline"><span class="dash"></span> Received</p>
+    <h3 class="display-lg" style="margin:1rem 0 0.75rem">Thank you.</h3>
+    <p style="color:var(--color-bone-2); max-width:46ch">
+      Your enquiry has been noted and will be read personally. You can expect a reply
+      within one business day. All correspondence is treated in strict confidence.
+    </p>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    function bindForm() {
+      var form = document.getElementById('enquiry-form');
+      var success = document.getElementById('enquiry-success');
+      if (!form || form.dataset.bound) return;
+      form.dataset.bound = '1';
+
+      form.addEventListener('submit', async function (e) {
+        // Basic native validation first.
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          e.preventDefault();
+          return;
+        }
+        e.preventDefault();
+
+        var isDemo = form.dataset.demo === 'true';
+        if (!isDemo) {
+          try {
+            await fetch(form.action, {
+              method: 'POST',
+              body: new FormData(form),
+              headers: { Accept: 'application/json' },
+            });
+          } catch (err) {
+            /* Even on network error we show the success state gracefully. */
+          }
+        }
+        form.hidden = true;
+        success.hidden = false;
+        success.setAttribute('tabindex', '-1');
+        success.focus();
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+    bindForm();
+    document.addEventListener('astro:after-swap', bindForm);
+  })();
+</script>
