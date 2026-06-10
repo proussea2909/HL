@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import ClosingCTA from '../../components/ClosingCTA.astro';
+import { site } from '../../config';
+import { insights } from '../../content';
+
+export function getStaticPaths() {
+  return insights.map((post) => ({
+    params: { slug: post.href.split('/').pop() },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<Base title={`${post.title} — ${site.practitionerName}`} description={post.standfirst}>
+  <article class="gutter pb-12 pt-40 md:pt-48">
+    <div class="mx-auto max-w-3xl">
+      <a href="/insights" class="arrow-link mb-10">
+        <span aria-hidden="true">←</span> All insights
+      </a>
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="chip">{post.category}</span>
+        <span class="text-[0.72rem] uppercase tracking-[0.15em] text-bone-muted">
+          {post.read} read
+        </span>
+      </div>
+      <h1 class="mt-7 text-[clamp(2.2rem,5.5vw,3.8rem)] text-bone">
+        {post.title}
+      </h1>
+      <p class="mt-7 text-xl leading-relaxed text-bone-variant">
+        {post.standfirst}
+      </p>
+    </div>
+  </article>
+
+  <div class="gutter">
+    <div class="frame mx-auto aspect-[16/8] max-w-5xl" data-reveal>
+      <img
+        src={post.img ??
+          'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1600&q=70'}
+        alt=""
+        loading="lazy"
+      />
+    </div>
+  </div>
+
+  <section class="gutter py-20 md:py-28" aria-label="Article">
+    <div
+      class="mx-auto max-w-2xl space-y-6 text-lg leading-relaxed text-bone-variant"
+      data-reveal
+    >
+      <p class="text-bone">
+        This briefing is in preparation. The full text will appear here.
+      </p>
+      <p>
+        In the meantime, the substance of this note draws directly on matters
+        handled across European and Gulf hospitality — the same experience that
+        informs every engagement. If the question is live for you now, it is
+        better discussed than read.
+      </p>
+      <p>
+        For the considered version delivered quarterly, the briefing list is
+        open. For anything time-sensitive, an enquiry reaches the practitioner
+        directly.
+      </p>
+    </div>
+  </section>
+
+  <ClosingCTA
+    overline="Continue"
+    heading="Have the conversation instead."
+    body="If this question is in front of you now, a short call with the person who handles it is worth more than a published note."
+  />
+</Base>

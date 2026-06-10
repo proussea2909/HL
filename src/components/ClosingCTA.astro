@@ -1,0 +1,41 @@
+---
+import { site } from '../config';
+interface Props {
+  overline?: string;
+  heading?: string;
+  body?: string;
+}
+const {
+  overline = 'Enquiries',
+  heading = 'The person who has negotiated it before.',
+  body = 'If you are facing a hotel management agreement, a branded-residence project, a transaction or an F&B arrangement, the first conversation is with the person who will do the work.',
+} = Astro.props;
+---
+
+<section class="gutter hairline py-28 md:py-36" aria-labelledby="cta-heading">
+  <div class="grid grid-cols-1 gap-10 md:grid-cols-12">
+    <div class="md:col-span-2">
+      <p class="overline" data-reveal>{overline}</p>
+    </div>
+    <div class="md:col-span-8 md:col-start-4">
+      <h2
+        id="cta-heading"
+        class="text-[clamp(2.2rem,5vw,4rem)] text-bone"
+        data-reveal
+      >
+        {heading}
+      </h2>
+      <p class="mt-8 max-w-xl text-lg text-bone-variant" data-reveal>
+        {body}
+      </p>
+      <div class="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center" data-reveal>
+        <a href="/contact" class="btn">
+          Open an enquiry <span aria-hidden="true">→</span>
+        </a>
+        <a href={`mailto:${site.email}`} class="arrow-link">
+          {site.email}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

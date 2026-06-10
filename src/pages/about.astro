@@ -1,0 +1,207 @@
+---
+import Base from '../layouts/Base.astro';
+import ClosingCTA from '../components/ClosingCTA.astro';
+import { site } from '../config';
+import { matters } from '../content';
+
+const credentials = [
+  {
+    label: 'Firms',
+    items: ['Mayer Brown', 'Gowlings', 'Squire Patton Boggs'],
+    note: 'Partner-level practice at major international firms.',
+  },
+  {
+    label: 'Operators',
+    items: ['Radisson', 'Accor', 'Marriott', 'Four Seasons'],
+    note: 'Deals across leading luxury and upper-upscale brands.',
+  },
+  {
+    label: 'Markets',
+    items: ['Europe', 'The Gulf'],
+    note: 'Active across European and Gulf hospitality.',
+  },
+  {
+    label: 'Model',
+    items: ['Fixed-fee', 'Fractional GC'],
+    note: 'Senior judgment, priced for certainty.',
+  },
+];
+
+const whyPoints = [
+  {
+    title: 'Continuity',
+    body: 'The lawyer who scopes the matter is the lawyer who finishes it. No handover, no re-learning your deal.',
+  },
+  {
+    title: 'No leverage',
+    body: 'Nothing is delegated down to gain margin. You are not funding a pyramid you never meet.',
+  },
+  {
+    title: 'Repeat experience',
+    body: 'The same agreements, the same brands, negotiated again and again over three decades.',
+  },
+  {
+    title: 'Direct access',
+    body: 'One number, one inbox. The senior person answers when a term is tested years later.',
+  },
+  {
+    title: 'Aligned incentives',
+    body: 'Fixed fees reward efficiency and judgment, not hours billed. Our interests point the same way.',
+  },
+  {
+    title: 'Discretion',
+    body: 'Confidential work, handled quietly. References available on request, never volunteered.',
+  },
+];
+---
+
+<Base
+  title={`About — ${site.practitionerName}`}
+  description="Thirty years of partner-level hospitality practice, distilled into an independent specialist. The partner is the practice."
+>
+  <!-- ====================== HEADER ====================== -->
+  <header class="gutter pb-20 pt-40 md:pt-48">
+    <p class="overline mb-8">About</p>
+    <h1 class="max-w-[18ch] text-[clamp(2.6rem,6.5vw,4.6rem)] text-bone">
+      Thirty years, one chair, no handovers.
+    </h1>
+  </header>
+
+  <!-- ====================== STORY ====================== -->
+  <section class="gutter pb-24" aria-label="Background">
+    <div class="grid grid-cols-1 items-start gap-12 md:grid-cols-12">
+      <div class="md:col-span-6">
+        <div class="frame aspect-[4/5]" data-reveal>
+          <!-- TODO: swap for a licensed portrait or architectural image -->
+          <img
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1100&q=70"
+            alt="Quiet architectural interior with stone and considered light"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div class="space-y-7 text-lg text-bone-variant md:col-span-5 md:col-start-8">
+        <p data-reveal>
+          Roughly thirty years of practice, much of it at partner level inside
+          major international firms — Mayer Brown, Gowlings and Squire Patton
+          Boggs among them. The work was always the same discipline: the
+          agreements at the heart of luxury hospitality.
+        </p>
+        <p data-reveal>
+          The independent practice is a deliberate step, not a downsizing. It
+          removes the layer between the client and the senior lawyer. There are
+          no associates to train on your deal, no leverage targets shaping the
+          advice, no churn carrying your matter from one hand to another.
+        </p>
+        <p data-reveal>
+          What remains is the part that took thirty years to build: the
+          judgment to know how a Marriott or an Accor will negotiate, where the
+          exposure hides in an HMA, and how to structure a transaction around
+          the agreements that give an asset its value.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== MANIFESTO PULL-QUOTE ====================== -->
+  <section class="gutter hairline py-28 md:py-36" aria-label="Manifesto">
+    <blockquote class="mx-auto max-w-5xl">
+      <p
+        class="text-[clamp(2rem,5vw,3.8rem)] leading-[1.1] text-bone"
+        data-reveal
+      >
+        <span class="text-brass">“</span>The partner is the practice. You retain
+        a person, not a pyramid — the one who has negotiated the exact agreement
+        you are facing, against the exact brand across the table.<span
+          class="text-brass">”</span
+        >
+      </p>
+      <footer class="mt-8 overline overline--plain text-bone-muted" data-reveal>
+        {site.practitionerName}
+      </footer>
+    </blockquote>
+  </section>
+
+  <!-- ====================== CREDENTIALS ====================== -->
+  <section class="gutter hairline py-24 md:py-32" aria-labelledby="cred-heading">
+    <h2 id="cred-heading" class="sr-only">Credentials</h2>
+    <ul class="grid grid-cols-1 gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+      {
+        credentials.map((c) => (
+          <li class="bg-ink p-8" data-reveal>
+            <p class="overline mb-6">{c.label}</p>
+            <ul class="space-y-1.5">
+              {c.items.map((item) => (
+                <li class="font-[var(--font-display)] text-2xl text-bone">
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p class="mt-6 text-[0.9rem] text-bone-variant">{c.note}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- ====================== SELECTED WORK ====================== -->
+  <section class="gutter hairline py-24 md:py-32" aria-labelledby="work-heading">
+    <div class="mb-16 max-w-2xl">
+      <p class="overline mb-5" data-reveal>Selected work</p>
+      <h2
+        id="work-heading"
+        class="text-[clamp(2rem,4.5vw,3.2rem)] text-bone"
+        data-reveal
+      >
+        Described in confidence.
+      </h2>
+      <p class="mt-6 text-bone-variant" data-reveal>
+        Engagements are anonymised. Named references are available on request.
+      </p>
+    </div>
+
+    <ol class="border-t border-line">
+      {
+        matters.map((m, i) => (
+          <li class="grid grid-cols-1 gap-4 border-b border-line py-9 md:grid-cols-12" data-reveal>
+            <span class="text-[0.75rem] font-semibold tracking-[0.15em] text-brass md:col-span-1">
+              0{i + 1}
+            </span>
+            <h3 class="text-[1.3rem] text-bone md:col-span-4">{m.label}</h3>
+            <p class="text-bone-variant md:col-span-7">{m.description}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- ====================== WHY THIS PERSON, NOT A FIRM ====================== -->
+  <section class="gutter hairline py-24 md:py-32" aria-labelledby="why-heading">
+    <div class="mb-16 max-w-2xl">
+      <p class="overline mb-5" data-reveal>The case</p>
+      <h2
+        id="why-heading"
+        class="text-[clamp(2rem,4.5vw,3.2rem)] text-bone"
+        data-reveal
+      >
+        Why this person, not a firm.
+      </h2>
+    </div>
+
+    <ul class="grid grid-cols-1 gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
+      {
+        whyPoints.map((p, i) => (
+          <li class="bg-ink p-8" data-reveal>
+            <span class="text-[0.75rem] font-semibold tracking-[0.15em] text-brass">
+              0{i + 1}
+            </span>
+            <h3 class="mt-5 text-[1.4rem] text-bone">{p.title}</h3>
+            <p class="mt-3 text-bone-variant">{p.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <ClosingCTA />
+</Base>

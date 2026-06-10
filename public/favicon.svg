@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#131313"/>
+  <rect x="8" y="8" width="48" height="48" fill="none" stroke="#444748" stroke-width="1"/>
+  <text x="32" y="44" font-family="Georgia, 'Bodoni Moda', serif" font-size="34" fill="#e4e2e1" text-anchor="middle">C</text>
+  <rect x="14" y="50" width="14" height="1.5" fill="#e8c086"/>
+</svg>

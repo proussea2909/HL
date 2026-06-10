@@ -1,0 +1,145 @@
+---
+import { nav, site } from '../config';
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header
+  id="site-nav"
+  class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,border-color,padding] duration-500"
+>
+  <nav
+    class="gutter flex items-center justify-between py-6 transition-[padding] duration-500"
+    aria-label="Primary"
+  >
+    <!-- Logo lockup -->
+    <a href="/" class="group flex items-baseline gap-2" aria-label="Home">
+      <span class="font-[var(--font-display)] text-xl tracking-tight text-bone"
+        >{site.mark}</span
+      >
+      <span
+        class="hidden text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-brass sm:inline"
+        >{site.discipline}</span
+      >
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden items-center gap-9 md:flex">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+              class:list={[
+                'text-[0.78rem] font-semibold uppercase tracking-[0.15em] transition-colors duration-300 hover:text-brass',
+                isActive(item.href) ? 'text-bone' : 'text-bone-variant',
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a href="/contact" class="btn btn--brass px-6 py-3">Enquire</a>
+      </li>
+    </ul>
+
+    <!-- Mobile toggle -->
+    <button
+      id="menu-open"
+      class="flex flex-col items-end gap-[6px] p-2 md:hidden"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="block h-px w-7 bg-bone"></span>
+      <span class="block h-px w-5 bg-bone"></span>
+      <span class="block h-px w-7 bg-bone"></span>
+    </button>
+  </nav>
+</header>
+
+<!-- Full-screen mobile menu -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-[60] hidden flex-col bg-ink-900 gutter"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menu"
+>
+  <div class="flex items-center justify-between py-6">
+    <span class="font-[var(--font-display)] text-xl text-bone">{site.mark}</span>
+    <button
+      id="menu-close"
+      class="p-2 text-[0.78rem] font-semibold uppercase tracking-[0.15em] text-bone-variant transition-colors hover:text-brass"
+      aria-label="Close menu"
+    >
+      Close
+    </button>
+  </div>
+  <ul class="mt-8 flex flex-col gap-2">
+    {
+      nav.map((item, i) => (
+        <li class="border-b border-line">
+          <a
+            href={item.href}
+            class="flex items-baseline gap-4 py-5 font-[var(--font-display)] text-4xl text-bone transition-colors hover:text-brass"
+          >
+            <span class="text-[0.7rem] font-semibold tracking-[0.15em] text-brass-dim">
+              0{i + 1}
+            </span>
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <a href="/contact" class="btn btn--brass mt-10 justify-center">Enquire</a>
+</div>
+
+<style>
+  #site-nav.is-scrolled {
+    background-color: rgba(14, 14, 14, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom-color: var(--color-line);
+  }
+  #site-nav.is-scrolled nav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+</style>
+
+<script>
+  function initMenu() {
+    const openBtn = document.getElementById('menu-open');
+    const closeBtn = document.getElementById('menu-close');
+    const menu = document.getElementById('mobile-menu');
+    if (!openBtn || !closeBtn || !menu) return;
+
+    const open = () => {
+      menu.classList.remove('hidden');
+      menu.classList.add('flex');
+      openBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    };
+    const close = () => {
+      menu.classList.add('hidden');
+      menu.classList.remove('flex');
+      openBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
+
+    openBtn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.classList.contains('hidden')) close();
+    });
+  }
+
+  initMenu();
+  document.addEventListener('astro:page-load', initMenu);
+</script>

@@ -1,0 +1,275 @@
+---
+import Base from '../layouts/Base.astro';
+import ClosingCTA from '../components/ClosingCTA.astro';
+import { site } from '../config';
+import { pillars, engagements, insights } from '../content';
+
+const teaser = insights.slice(0, 3);
+
+const marqueeItems = [
+  'Mayer Brown',
+  'Gowlings',
+  'Squire Patton Boggs',
+  'Radisson',
+  'Accor',
+  'Marriott',
+  'Four Seasons',
+  'Fixed-fee by default',
+  'European & Gulf markets',
+  '~30 years at partner level',
+];
+---
+
+<Base title={`${site.practitionerName} — Hospitality & M&A Counsel`}>
+  <!-- ====================== HERO ====================== -->
+  <section class="relative flex min-h-[100svh] items-end overflow-hidden">
+    <div class="frame absolute inset-0 -z-10" aria-hidden="true">
+      <!-- TODO: swap for licensed hospitality photography -->
+      <img
+        src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=70"
+        alt=""
+        fetchpriority="high"
+      />
+      <div
+        class="absolute inset-0"
+        style="background: linear-gradient(180deg, rgba(19,19,19,0.55) 0%, rgba(19,19,19,0.35) 40%, rgba(19,19,19,0.92) 100%);"
+      >
+      </div>
+    </div>
+
+    <div class="gutter w-full pb-20 pt-36">
+      <p class="overline mb-8">{site.discipline}</p>
+      <h1 class="max-w-[15ch] text-[clamp(2.8rem,7vw,5rem)] text-bone">
+        The partner is the practice.
+      </h1>
+      <p class="mt-8 max-w-xl text-lg text-bone-variant md:text-xl">
+        Senior independent counsel for luxury hospitality — hotel management
+        agreements, branded residences, M&amp;A and F&amp;B integration. You
+        retain the lawyer who has negotiated the exact agreements you are
+        facing, against the exact brands across the table.
+      </p>
+      <div class="mt-12">
+        <a href="/contact" class="btn">
+          Enquire <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== VALUE / THE DIFFERENCE ====================== -->
+  <section class="gutter py-28 md:py-40" aria-labelledby="value-heading">
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="overline mb-6" data-reveal>The difference</p>
+        <h2
+          id="value-heading"
+          class="text-[clamp(2rem,4.5vw,3.4rem)] text-bone"
+          data-reveal
+        >
+          You are buying the lawyer, not a firm.
+        </h2>
+      </div>
+      <div class="space-y-8 text-lg text-bone-variant md:col-span-5 md:col-start-8">
+        <p data-reveal>
+          No associates. No leverage. No churn. The senior person who scopes
+          your matter is the senior person who negotiates it and the senior
+          person who answers the phone two years later when a clause is tested.
+        </p>
+        <p data-reveal>
+          Thirty years of partner-level practice, distilled into a single point
+          of contact. The counterparty fields a specialist who has done this a
+          hundred times. So should you.
+        </p>
+        <p data-reveal class="text-bone">
+          Restraint is the signal of seniority. The work speaks; the white space
+          carries the rest.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FOUR PILLARS ====================== -->
+  <section class="gutter hairline py-24 md:py-32" aria-labelledby="pillars-heading">
+    <div class="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div>
+        <p class="overline mb-5" data-reveal>Practice</p>
+        <h2
+          id="pillars-heading"
+          class="max-w-[18ch] text-[clamp(2rem,4.5vw,3.2rem)] text-bone"
+          data-reveal
+        >
+          Four pillars, one specialism.
+        </h2>
+      </div>
+      <a href="/practice" class="arrow-link" data-reveal>
+        Explore the practice <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <ul class="grid grid-cols-1 border-t border-line md:grid-cols-2">
+      {
+        pillars.map((p) => (
+          <li class="group border-b border-line md:[&:nth-child(odd)]:border-r md:[&:nth-child(odd)]:pr-12 md:[&:nth-child(even)]:pl-12">
+            <a
+              href={`/practice#${p.id}`}
+              class="flex flex-col gap-4 py-10 transition-colors"
+              data-reveal
+            >
+              <div class="flex items-baseline gap-4">
+                <span class="text-[0.75rem] font-semibold tracking-[0.15em] text-brass">
+                  {p.index} / {p.tagline.toUpperCase()}
+                </span>
+              </div>
+              <h3 class="text-[clamp(1.5rem,3vw,2.1rem)] text-bone transition-colors group-hover:text-brass">
+                {p.title}
+              </h3>
+              <p class="max-w-md text-bone-variant">{p.body}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- ====================== CREDIBILITY MARQUEE ====================== -->
+  <section
+    class="hairline border-b border-line py-7"
+    aria-label="Credibility"
+  >
+    <div class="marquee">
+      <div class="marquee__track" aria-hidden="false">
+        {
+          marqueeItems.map((item) => (
+            <span class="flex items-center gap-3.5 whitespace-nowrap text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-bone-variant">
+              {item}
+              <span class="text-brass">·</span>
+            </span>
+          ))
+        }
+      </div>
+      <div class="marquee__track" aria-hidden="true">
+        {
+          marqueeItems.map((item) => (
+            <span class="flex items-center gap-3.5 whitespace-nowrap text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-bone-variant">
+              {item}
+              <span class="text-brass">·</span>
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== ASYMMETRIC STORY BLOCK ====================== -->
+  <section class="gutter py-28 md:py-40" aria-labelledby="story-heading">
+    <div class="grid grid-cols-1 items-center gap-12 md:grid-cols-12">
+      <div class="md:col-span-6">
+        <div class="frame aspect-[4/5]" data-reveal>
+          <!-- TODO: swap for licensed photography -->
+          <img
+            src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1100&q=70"
+            alt="Architectural detail of a luxury hospitality interior in low light"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div class="md:col-span-5 md:col-start-8">
+        <p class="overline mb-6" data-reveal>The approach</p>
+        <h2
+          id="story-heading"
+          class="text-[clamp(1.9rem,4vw,3rem)] text-bone"
+          data-reveal
+        >
+          Judgment, earned across the table from the brands you are negotiating
+          with.
+        </h2>
+        <p class="mt-8 text-lg text-bone-variant" data-reveal>
+          The agreements at the centre of luxury hospitality are negotiated, not
+          drafted from a template. What moves a term is knowing what the operator
+          will concede, what they never will, and where the exposure surfaces
+          long after the deal closes.
+        </p>
+        <p class="mt-6 text-lg text-bone-variant" data-reveal>
+          That knowledge is not transferable to a checklist. It is the product of
+          having sat in the chair, repeatedly, on both the operator and the owner
+          side.
+        </p>
+        <a href="/about" class="arrow-link mt-10" data-reveal>
+          About the practice <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== ENGAGEMENT MODELS ====================== -->
+  <section class="gutter hairline py-24 md:py-32" aria-labelledby="engage-heading">
+    <div class="mb-16 max-w-2xl">
+      <p class="overline mb-5" data-reveal>Engagement</p>
+      <h2
+        id="engage-heading"
+        class="text-[clamp(2rem,4.5vw,3.2rem)] text-bone"
+        data-reveal
+      >
+        Three ways to work together.
+      </h2>
+      <p class="mt-6 text-lg text-bone-variant" data-reveal>
+        Fixed-fee by default. Hourly is available selectively, where a fixed fee
+        does not fit. Indicative fees provided on enquiry.
+      </p>
+    </div>
+
+    <ul class="grid grid-cols-1 gap-px bg-line md:grid-cols-3">
+      {
+        engagements.map((e) => (
+          <li class="card !border-0 bg-ink h-full" data-reveal>
+            <span class="text-[0.75rem] font-semibold tracking-[0.15em] text-brass">
+              {e.index} · {e.meta.toUpperCase()}
+            </span>
+            <h3 class="mt-5 text-[1.6rem] text-bone">{e.title}</h3>
+            <p class="mt-4 text-bone-variant">{e.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- ====================== INSIGHTS TEASER ====================== -->
+  <section class="gutter hairline py-24 md:py-32" aria-labelledby="insights-heading">
+    <div class="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div>
+        <p class="overline mb-5" data-reveal>Insights</p>
+        <h2
+          id="insights-heading"
+          class="text-[clamp(2rem,4.5vw,3.2rem)] text-bone"
+          data-reveal
+        >
+          Notes from the practice.
+        </h2>
+      </div>
+      <a href="/insights" class="arrow-link" data-reveal>
+        All insights <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <ul class="grid grid-cols-1 gap-px bg-line md:grid-cols-3">
+      {
+        teaser.map((post) => (
+          <li class="bg-ink" data-reveal>
+            <a href={post.href} class="group flex h-full flex-col gap-5 p-8 transition-colors hover:bg-ink-800">
+              <span class="chip self-start">{post.category}</span>
+              <h3 class="text-[1.45rem] leading-tight text-bone transition-colors group-hover:text-brass">
+                {post.title}
+              </h3>
+              <p class="text-[0.95rem] text-bone-variant">{post.standfirst}</p>
+              <span class="mt-auto pt-4 text-[0.72rem] uppercase tracking-[0.15em] text-bone-muted">
+                {post.read} read
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <ClosingCTA />
+</Base>
