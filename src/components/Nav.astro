@@ -1,13 +1,16 @@
 ---
-import { nav, site } from '../config';
+import { nav, site, link } from '../config';
 
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const isActive = (href: string) => {
+  const target = link(href).replace(/\/+$/, '') || '/';
+  return href === '/' ? path === target : path.startsWith(target);
+};
 ---
 
 <header id="site-header" class="site-header">
   <div class="site-header__inner shell">
-    <a href="/" class="wordmark" aria-label={`${site.brandFull} — home`}>
+    <a href={link('/')} class="wordmark" aria-label={`${site.brandFull} — home`}>
       <span class="wordmark__name">{site.brand}</span>
       <span class="wordmark__dot" aria-hidden="true"></span>
     </a>
@@ -18,7 +21,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
           nav.map((item) => (
             <li>
               <a
-                href={item.href}
+                href={link(item.href)}
                 class:list={['nav-link', { 'is-current': isActive(item.href) }]}
                 aria-current={isActive(item.href) ? 'page' : undefined}
               >
@@ -31,7 +34,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     </nav>
 
     <div class="nav-actions">
-      <a href="/contact" class="btn btn--enquire">Enquire</a>
+      <a href={link('/contact')} class="btn btn--enquire">Enquire</a>
       <button
         id="menu-toggle"
         class="menu-toggle"
@@ -53,7 +56,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
       {
         nav.map((item, i) => (
           <li style={`--i:${i}`}>
-            <a href={item.href} class:list={['mobile-link', { 'is-current': isActive(item.href) }]}>
+            <a href={link(item.href)} class:list={['mobile-link', { 'is-current': isActive(item.href) }]}>
               <span class="mobile-link__num">0{i + 1}</span>
               {item.label}
             </a>
@@ -61,7 +64,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
         ))
       }
     </ul>
-    <a href="/contact" class="btn mobile-menu__cta">Enquire</a>
+    <a href={link('/contact')} class="btn mobile-menu__cta">Enquire</a>
     <p class="mobile-menu__foot overline">{site.markets}</p>
   </nav>
 </div>

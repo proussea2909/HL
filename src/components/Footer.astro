@@ -1,5 +1,5 @@
 ---
-import { nav, site } from '../config';
+import { nav, site, link } from '../config';
 import { pillars } from '../data/pillars';
 
 const year = new Date().getFullYear();
@@ -9,7 +9,7 @@ const year = new Date().getFullYear();
   <div class="shell">
     <div class="site-footer__top hairline">
       <div class="site-footer__brand">
-        <a href="/" class="wordmark-foot" aria-label={`${site.brandFull} — home`}>
+        <a href={link('/')} class="wordmark-foot" aria-label={`${site.brandFull} — home`}>
           {site.brand}<span class="wordmark-foot__dot" aria-hidden="true"></span>
         </a>
         <p class="overline" style="margin-top:1rem">{site.overline}</p>
@@ -27,7 +27,7 @@ const year = new Date().getFullYear();
           {
             pillars.map((p) => (
               <li>
-                <a href={`/practice#${p.slug}`}>{p.title}</a>
+                <a href={link(`/practice#${p.slug}`)}>{p.title}</a>
               </li>
             ))
           }
@@ -40,7 +40,7 @@ const year = new Date().getFullYear();
           {
             nav.map((item) => (
               <li>
-                <a href={item.href}>{item.label}</a>
+                <a href={link(item.href)}>{item.label}</a>
               </li>
             ))
           }
@@ -55,7 +55,7 @@ const year = new Date().getFullYear();
             <!-- TODO: replace href with the practitioner's LinkedIn URL. -->
             <a href={site.linkedin} aria-label="LinkedIn (placeholder)">LinkedIn</a>
           </li>
-          <li><a href="/contact">Enquire</a></li>
+          <li><a href={link('/contact')}>Enquire</a></li>
         </ul>
         <p class="site-footer__markets overline">{site.markets}</p>
       </nav>

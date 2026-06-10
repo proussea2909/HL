@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BriefingForm from '../components/BriefingForm.astro';
 import { featured, standard } from '../data/insights';
+import { link } from '../config';
 
 const firstRow = standard.slice(0, 3);
 const secondRow = standard.slice(3);
@@ -25,7 +26,7 @@ const secondRow = standard.slice(3);
 
   <!-- FEATURED -->
   <section class="shell">
-    <a href={`/insights/${featured.slug}`} class="featured reveal">
+    <a href={link(`/insights/${featured.slug}`)} class="featured reveal">
       <div class="featured__media frame">
         <img src={featured.image} alt={featured.imageAlt} loading="lazy" width="1500" height="1000" />
       </div>
@@ -44,7 +45,7 @@ const secondRow = standard.slice(3);
     <div class="insights-grid">
       {
         firstRow.map((a, i) => (
-          <a href={`/insights/${a.slug}`} class="insight card reveal" style={`--reveal-delay:${i * 80}ms`}>
+          <a href={link(`/insights/${a.slug}`)} class="insight card reveal" style={`--reveal-delay:${i * 80}ms`}>
             <span class="overline">{a.category}</span>
             <h3 class="insight__title">{a.title}</h3>
             <p class="muted insight__stand">{a.standfirst}</p>
@@ -57,7 +58,7 @@ const secondRow = standard.slice(3);
     <div class="insights-grid insights-grid--two">
       {
         secondRow.map((a, i) => (
-          <a href={`/insights/${a.slug}`} class="insight card reveal" style={`--reveal-delay:${i * 80}ms`}>
+          <a href={link(`/insights/${a.slug}`)} class="insight card reveal" style={`--reveal-delay:${i * 80}ms`}>
             <span class="overline">{a.category}</span>
             <h3 class="insight__title">{a.title}</h3>
             <p class="muted insight__stand">{a.standfirst}</p>
