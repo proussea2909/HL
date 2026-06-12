@@ -13,14 +13,14 @@ const isActive = (href: string) =>
     class="gutter flex items-center justify-between py-6 transition-[padding] duration-500"
     aria-label="Primary"
   >
-    <!-- Logo lockup -->
-    <a href="/" class="group flex items-baseline gap-2" aria-label="Home">
+    <!-- Logo lockup: name (large) over practice (small caps, muted brass) -->
+    <a href="/" class="group flex flex-col leading-none" aria-label="Home">
       <span class="font-[var(--font-display)] text-xl tracking-tight text-bone"
-        >{site.mark}</span
+        >{site.practitionerName}</span
       >
       <span
-        class="hidden text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-brass sm:inline"
-        >{site.discipline}</span
+        class="mt-1 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-brass-dim transition-colors group-hover:text-brass"
+        >{site.firm}</span
       >
     </a>
 
@@ -71,7 +71,10 @@ const isActive = (href: string) =>
   aria-label="Menu"
 >
   <div class="flex items-center justify-between py-6">
-    <span class="font-[var(--font-display)] text-xl text-bone">{site.mark}</span>
+    <span class="flex flex-col leading-none">
+      <span class="font-[var(--font-display)] text-xl text-bone">{site.practitionerName}</span>
+      <span class="mt-1 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-brass-dim">{site.firm}</span>
+    </span>
     <button
       id="menu-close"
       class="p-2 text-[0.78rem] font-semibold uppercase tracking-[0.15em] text-bone-variant transition-colors hover:text-brass"

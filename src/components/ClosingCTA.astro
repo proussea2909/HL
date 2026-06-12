@@ -4,11 +4,13 @@ interface Props {
   overline?: string;
   heading?: string;
   body?: string;
+  cta?: string;
 }
 const {
   overline = 'Enquiries',
   heading = 'The person who has negotiated it before.',
   body = 'If you are facing a hotel management agreement, a branded-residence project, a transaction or an F&B arrangement, the first conversation is with the person who will do the work.',
+  cta = 'Open an enquiry',
 } = Astro.props;
 ---
 
@@ -30,7 +32,7 @@ const {
       </p>
       <div class="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center" data-reveal>
         <a href="/contact" class="btn">
-          Open an enquiry <span aria-hidden="true">→</span>
+          {cta} <span aria-hidden="true">→</span>
         </a>
         <a href={`mailto:${site.email}`} class="arrow-link">
           {site.email}

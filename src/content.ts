@@ -10,6 +10,8 @@ export interface Pillar {
   index: string;
   title: string;
   tagline: string;
+  /** Short label shown on the home page cards (e.g. "Core · Growing"). */
+  cardTag: string;
   body: string;
   longBody: string;
   chips: string[];
@@ -27,7 +29,8 @@ export const pillars: Pillar[] = [
     index: '01',
     title: 'Hotel Management Agreements',
     tagline: 'The core anchor',
-    body: 'Negotiating and structuring HMAs with the major international operators — Radisson, Accor, Marriott, Four Seasons and their equivalents.',
+    cardTag: 'Core',
+    body: 'Negotiating and structuring HMAs with the major international operators, where repeated, brand-specific experience converts directly into better terms.',
     longBody:
       'The HMA is where deep, repeated, brand-specific experience translates directly into commercial terms. An owner negotiating their first Marriott agreement sits across from a counterparty that signs them every week. The value is having someone on your side of the table who also does it every week — who knows which clauses move, which never do, and where the real exposure sits years after signing.',
     chips: ['Term & Renewal', 'Performance Tests', 'Termination Rights', 'Fee Structures', 'Operator Standards', 'Owner Controls'],
@@ -39,7 +42,8 @@ export const pillars: Pillar[] = [
     index: '02',
     title: 'Branded Residences',
     tagline: 'Core, and growing',
-    body: 'The full legal architecture of branded-residence projects — brand licensing, the operator–residential interface, rental programmes, disclosure and structuring.',
+    cardTag: 'Core · Growing',
+    body: 'The full legal architecture of a branded-residence project, offered as a defined, fixed-scope package that gives developers cost certainty on the legal layer.',
     longBody:
       'Branded residences sit at the intersection of hotel operation and residential sale, and the legal layer is where the two must be reconciled. Offered as a defined, fixed-scope package, the work gives developers cost certainty on the legal layer of a project — from the licence terms through to the documents an end purchaser signs.',
     chips: ['Brand Licensing', 'Rental Programmes', 'Operator Interface', 'Disclosure', 'Strata & Structuring', 'Purchaser Documents'],
@@ -51,7 +55,8 @@ export const pillars: Pillar[] = [
     index: '03',
     title: 'Hospitality M&A',
     tagline: 'A scope extension',
-    body: 'Acquisitions, disposals and corporate transactions involving hotels, operators and hospitality real estate.',
+    cardTag: 'Scope Extension',
+    body: 'Acquisitions, disposals and corporate transactions involving hotels, operators and hospitality real estate, structured by the person who understands the underlying agreements.',
     longBody:
       'This is not general corporate M&A. It is the same person who understands the underlying management and operational agreements structuring the deal around them. When the value of an asset turns on the terms of its HMA, the lawyer who reads that agreement fluently is the lawyer who should be shaping the transaction.',
     chips: ['Acquisitions', 'Disposals', 'Operator Transactions', 'Due Diligence', 'Joint Ventures', 'Portfolio Deals'],
@@ -63,7 +68,8 @@ export const pillars: Pillar[] = [
     index: '04',
     title: 'F&B Integration',
     tagline: 'An emerging capability',
-    body: 'The food-and-beverage layer of hospitality and branded-residence projects — celebrity-chef licensing, F&B operator agreements and embedded F&B components.',
+    cardTag: 'Emerging',
+    body: 'The food-and-beverage layer of hospitality and residential projects: celebrity-chef licensing, operator agreements and the F&B components embedded in developments.',
     longBody:
       'Not a standalone restaurant practice — an integrated capability within the hospitality real-estate positioning. As signature dining becomes central to how a property is valued and marketed, the agreements behind it deserve the same rigour as the HMA itself.',
     chips: ['Chef Licensing', 'F&B Operator Agreements', 'Concession Terms', 'Brand Standards', 'Embedded F&B'],
@@ -77,26 +83,30 @@ export interface Engagement {
   title: string;
   body: string;
   meta: string;
+  points: string[];
 }
 
 export const engagements: Engagement[] = [
   {
     index: '01',
-    title: 'Fixed-fee, per matter',
-    body: 'The default. A known scope for a known price, agreed before the work begins. No clock, no surprises — the discipline of a single negotiator who can scope a matter accurately because they have run it before.',
+    title: 'Fixed-Fee per Matter',
     meta: 'The default',
+    body: 'A known scope for a known price. Most matters fall here: the agreement, the negotiation, the deliverable — defined and priced before the work begins, so the cost is never a surprise.',
+    points: ['Defined scope', 'Single agreed fee', 'No clock-watching'],
   },
   {
     index: '02',
-    title: 'Branded Residences package',
-    body: 'A fixed scope covering the full legal layer of a branded-residence project, from brand licence to purchaser documentation. Cost certainty for developers on the one workstream most prone to drift.',
-    meta: 'Defined scope',
+    title: 'Branded Residences Package',
+    meta: 'Fixed scope',
+    body: 'The complete legal layer of a branded-residence project, delivered as one fixed-scope package. It gives developers cost certainty on the legal architecture from the outset of the scheme.',
+    points: ['Full project legal layer', 'One package, one scope', 'Cost certainty for developers'],
   },
   {
     index: '03',
-    title: 'Fractional / flexible GC',
-    body: 'Ongoing access for mid-size hotel investment platforms, family offices and developers — senior judgment on call, without the cost of building a team. The structural anchor of the practice.',
-    meta: 'The anchor',
+    title: 'Fractional / Flexible GC Retainer',
+    meta: 'The structural anchor',
+    body: 'Ongoing, senior access for mid-size hotel investment platforms, family offices and developers — the judgment of an in-house head of legal, without the fixed cost of one. The relationship most clients settle into.',
+    points: ['Ongoing senior access', 'Platforms, family offices, developers', 'Scales with the pipeline'],
   },
 ];
 

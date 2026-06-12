@@ -1,18 +1,18 @@
 /**
  * SITE CONFIGURATION
  * ------------------------------------------------------------------
- * Swap the placeholder identity here. These tokens are used across
- * every page, so changing them in one place updates the whole site.
+ * Identity lives here. These tokens are used across every page, so
+ * changing one value updates the whole site.
  *
- *  • practitionerName  →  the named senior lawyer
+ *  • practitionerName  →  the named senior lawyer (large mark)
+ *  • firm              →  the practice name (small mark beneath)
  *  • email             →  enquiry / contact address
  *  • formEndpoint      →  paste your Formspree-style endpoint (see README)
  */
 export const site = {
-  practitionerName: '[PRACTITIONER NAME]',
-  // Short mark used in the nav/footer logo lockup.
-  mark: 'Counsel',
-  email: 'office@[domain].com',
+  practitionerName: 'Alexandra Plain',
+  firm: 'Odyssey Consultancy',
+  email: 'alexandra@odysseyconsultancy.com',
   linkedin: '#', // TODO: replace with the LinkedIn profile URL
   markets: 'European & Gulf markets',
   discipline: 'Hospitality & M&A Counsel',
